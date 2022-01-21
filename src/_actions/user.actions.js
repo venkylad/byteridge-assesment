@@ -8,19 +8,25 @@ export const userActions = {
   logout,
   register,
   getAll,
-  delete: _delete
+  delete: _delete,
 };
 
 function login(username, password) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(request({ username }));
 
     userService.login(username, password).then(
-      user => {
+      (user) => {
         dispatch(success(user));
-        history.push("/");
+        if (user.role === "Auditor") {
+          history.push("/Audit");
+        } else {
+          history.push("/");
+        }
+
+        console.log(user, "USER");
       },
-      error => {
+      (error) => {
         dispatch(failure(error.toString()));
         dispatch(alertActions.error(error.toString()));
       }
@@ -44,16 +50,16 @@ function logout() {
 }
 
 function register(user) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(request(user));
 
     userService.register(user).then(
-      user => {
+      (user) => {
         dispatch(success());
         history.push("/login");
         dispatch(alertActions.success("Registration successful"));
       },
-      error => {
+      (error) => {
         dispatch(failure(error.toString()));
         dispatch(alertActions.error(error.toString()));
       }
@@ -72,12 +78,12 @@ function register(user) {
 }
 
 function auditgetAll() {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(request());
 
     userService.auditgetAll().then(
-      users => dispatch(success(users)),
-      error => dispatch(failure(error.toString()))
+      (users) => dispatch(success(users)),
+      (error) => dispatch(failure(error.toString()))
     );
   };
 
@@ -92,12 +98,12 @@ function auditgetAll() {
   }
 }
 function getAll() {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(request());
 
     userService.getAll().then(
-      users => dispatch(success(users)),
-      error => dispatch(failure(error.toString()))
+      (users) => dispatch(success(users)),
+      (error) => dispatch(failure(error.toString()))
     );
   };
 
@@ -113,12 +119,12 @@ function getAll() {
 }
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(request(id));
 
     userService.delete(id).then(
-      user => dispatch(success(id)),
-      error => dispatch(failure(id, error.toString()))
+      (user) => dispatch(success(id)),
+      (error) => dispatch(failure(id, error.toString()))
     );
   };
 

@@ -25,3 +25,51 @@ a.nav-link {
 .user-screen {
   width: max-content !important;
 }
+
+table,
+th,
+td {
+  border: 1px solid black;
+}
+
+th {
+  width: unset;
+  min-width: 175px;
+  max-width: 400px;
+  padding: 6px;
+}
+
+td {
+  width: unset;
+  min-width: 175px;
+  max-width: 400px;
+  padding: 6px;
+}
+
+.date {
+  width: 100px;
+}
+
+.filters {
+  width: 100%;
+  display: flex;
+  margin: 10px;
+}
+
+.paginate {
+  width: 600px;
+  display: flex;
+  margin: 10px;
+}
+
+.filters select {
+  padding: 10px;
+  margin: 0px 10px;
+}
+
+.filters input {
+  flex: 1;
+  width: 200px;
+  padding: 10px;
+  margin: 0px 10px;
+}
